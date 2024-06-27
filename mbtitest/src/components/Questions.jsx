@@ -101,18 +101,19 @@ const questions = {
   },
 };
 
-function Question({ num, nextStep, updateScore }) {
+function Question({ num, setNum, updateScore }) {
   //현재 질문 번호, 다음 질문번호로 증가, 점수 업데이트
   const navigate = useNavigate();
 
   const handleAnswer = (type, value) => {
-    //사용자의 응답에 따라 점수 업데이트
+    // 사용자의 응답에 따라 점수 업데이트
     updateScore(type, value);
+
+    // 질문 번호 업데이트 또는 결과 페이지로 이동
     if (num < 12) {
-      //현재 질문 번호가 12보다 작으면 nextStep함수 호출해서 다음 질문 이동
-      nextStep();
+      setNum(num + 1); // 다음 질문으로 넘어감
     } else {
-      navigate('/result');
+      navigate('/result'); // 결과 페이지로 이동
     }
   };
 
@@ -129,13 +130,15 @@ function Question({ num, nextStep, updateScore }) {
         ></div>
       </div>
       <p id="title">{currentQuestion.title}</p>
-      {currentQuestion.image && (
-        <img
-          src={currentQuestion.image}
-          alt="question visual"
-          className="question-image"
-        />
-      )}
+      <div className="question-image-container">
+        {currentQuestion.image && (
+          <img
+            src={currentQuestion.image}
+            alt="question visual"
+            className="question-image"
+          />
+        )}
+      </div>
       <button
         className="btn btn-warning"
         onClick={() => handleAnswer(currentQuestion.type, 1)}

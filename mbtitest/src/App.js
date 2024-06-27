@@ -9,7 +9,6 @@ import Start from './components/Start';
 import Question from './components/Questions';
 import Result from './components/Result';
 import './App.css';
-import { useEffect } from 'react';
 
 function App() {
   const [num, setNum] = useState(1); //현재 질문 번호를 저장하는 변수. 초기값은 1
@@ -19,16 +18,6 @@ function App() {
     TF: 0,
     PJ: 0,
   }); //각 MBTI  점수를 저장하는 변수. 초기값은 0
-
-  const navigate = useNavigate();
-
-  const nextStep = () => {
-    if (num < 12) {
-      setNum(num + 1);
-    } else {
-      navigate('/result');
-    }
-  };
 
   const updateScore = (type, value) => {
     setScore({
@@ -58,7 +47,7 @@ function App() {
         <Route
           path="/question"
           element={
-            <Question num={num} nextStep={nextStep} updateScore={updateScore} />
+            <Question num={num} updateScore={updateScore} setNum={setNum} />
           }
         />
         <Route
