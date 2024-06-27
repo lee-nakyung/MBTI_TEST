@@ -102,11 +102,14 @@ const questions = {
 };
 
 function Question({ num, nextStep, updateScore }) {
+  //현재 질문 번호, 다음 질문번호로 증가, 점수 업데이트
   const navigate = useNavigate();
 
   const handleAnswer = (type, value) => {
+    //사용자의 응답에 따라 점수 업데이트
     updateScore(type, value);
     if (num < 12) {
+      //현재 질문 번호가 12보다 작으면 nextStep함수 호출해서 다음 질문 이동
       nextStep();
     } else {
       navigate('/result');
@@ -114,6 +117,7 @@ function Question({ num, nextStep, updateScore }) {
   };
 
   const currentQuestion = questions[num];
+  //현재 질문 가져오기, 객체에서 현재 질문 번호에 해당하는 질문 데이터 가져옴
 
   return (
     <div className="content" id="question">

@@ -118,8 +118,9 @@ const results = {
   },
 };
 
-function Result({ score }) {
+function Result({ score, resetState }) {
   const navigate = useNavigate();
+  //app.js에서 score props로 받아옴
 
   const getResult = () => {
     let result = '';
@@ -128,17 +129,22 @@ function Result({ score }) {
     result += score.TF < 2 ? 'F' : 'T';
     result += score.PJ < 2 ? 'J' : 'P';
     return results[result];
+    //결과 객체 반환
+
+    //각 지표별로 점수가 2미만이면, 첫번째 문자, 2이상이면 두번째 문자
   };
 
   const result = getResult();
 
   const handleRestart = () => {
-    navigate('/');
+    resetState();
+    navigate('/question'); // 직접 /question 경로로 이동
   };
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href).then(() => {
       alert('링크가 복사되었습니다.');
+      //현재 페이지의 URL을 클립보드에 복사
     });
   };
 
